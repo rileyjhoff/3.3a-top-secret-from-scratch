@@ -34,6 +34,15 @@ describe('users routes', () => {
     expect(res.body.message).toEqual('Signed in successfully');
   });
 
+  it('DELETE /api/v1/users/sessions should log out a user', async () => {
+    await request(app).post('/api/v1/users').send(testUser);
+    await request(app).post('/api/v1/users/sessions').send(testUser);
+    const res = await request(app).delete('/api/v1/users/sessions');
+
+    expect(res.status).toEqual(200);
+    expect(res.body.message).toEqual('Logged out successfully');
+  });
+
   afterAll(() => {
     pool.end();
   });
