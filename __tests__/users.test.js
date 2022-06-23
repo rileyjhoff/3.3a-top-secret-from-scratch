@@ -14,6 +14,18 @@ describe('users routes', () => {
     return setup(pool);
   });
 
+  it('POST /api/v1/users should create a user', async () => {
+    const res = await request(app)
+      .post('/api/v1/users/sessions')
+      .send(testUser);
+
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      id: expect.any(Number),
+      email: testUser.email,
+    });
+  });
+
   it('POST /api/v1/users/sessions should log in a user', async () => {
     const res = await request(app)
       .post('/api/v1/users/sessions')
