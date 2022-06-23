@@ -18,12 +18,9 @@ describe('users routes', () => {
     const res = await request(app)
       .post('/api/v1/users/sessions')
       .send(testUser);
-    const { email } = testUser;
 
-    expect(res.body).toEqual({
-      id: expect.any(Number),
-      email,
-    });
+    expect(res.status).toEqual(200);
+    expect(res.body.message).toEqual('Signed in successfully');
   });
 
   afterAll(() => {
