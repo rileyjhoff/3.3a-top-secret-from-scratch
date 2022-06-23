@@ -15,9 +15,7 @@ describe('users routes', () => {
   });
 
   it('POST /api/v1/users should create a user', async () => {
-    const res = await request(app)
-      .post('/api/v1/users/sessions')
-      .send(testUser);
+    const res = await request(app).post('/api/v1/users').send(testUser);
 
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({
@@ -27,6 +25,7 @@ describe('users routes', () => {
   });
 
   it('POST /api/v1/users/sessions should log in a user', async () => {
+    await request(app).post('/api/v1/users').send(testUser);
     const res = await request(app)
       .post('/api/v1/users/sessions')
       .send(testUser);
