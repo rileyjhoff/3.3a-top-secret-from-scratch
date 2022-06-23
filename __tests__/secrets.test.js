@@ -14,28 +14,29 @@ describe('secrets routes', () => {
   });
 
   it('GET /api/v1/secrets should return a list of secrets', async () => {
-    const res = await request(app).get('/api/v1/secrets');
+    const agent = request.agent(app);
+    const res1 = await agent.get('/api/v1/secrets');
 
-    expect(res.status).toEqual(401);
+    expect(res1.status).toEqual(401);
 
-    const res1 = await request(app).post('/api/v1/users').send(testUser);
+    const res2 = await agent.post('/api/v1/users').send(testUser);
 
-    expect(res1.status).toEqual(200);
-    expect(res1.body).toEqual({
+    expect(res2.status).toEqual(200);
+    expect(res2.body).toEqual({
       id: expect.any(Number),
       email: testUser.email,
     });
 
-    const res2 = await request(app)
-      .post('/api/v1/users/sessions')
-      .send(testUser);
-
-    expect(res2.status).toEqual(200);
-    expect(res2.body.message).toEqual('Signed in successfully');
-
-    const res3 = await request(app).get('/api/v1/secrets');
+    const res3 = await agent.post('/api/v1/users/sessions').send(testUser);
 
     expect(res3.status).toEqual(200);
+    expect(res3.body.message).toEqual('Signed in successfully');
+
+    const res4 = await agent.get('/api/v1/secrets');
+
+    expect(res4.status).toEqual(200);
+    expect(res4.body.title).toEqual('this is');
+    expect(res4.body.description).toEqual('a test');
   });
 
   afterAll(() => {
