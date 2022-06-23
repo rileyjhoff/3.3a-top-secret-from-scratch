@@ -16,7 +16,7 @@ describe('secrets routes', () => {
   it('GET /api/v1/secrets should return a list of secrets', async () => {
     const res = await request(app).get('/api/v1/secrets');
 
-    expect(res.status).toEqual(200);
+    expect(res.status).toEqual(401);
 
     const res1 = await request(app).post('/api/v1/users').send(testUser);
 

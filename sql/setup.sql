@@ -17,3 +17,6 @@ CREATE TABLE secrets (
   description TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO secrets (title, description)
+VALUES ('this is', 'a test');
